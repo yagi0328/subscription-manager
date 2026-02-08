@@ -7,6 +7,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import Image from "next/image";
 import { Card, CardContent, CardDescription } from "../ui/card";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(login, {
@@ -68,6 +69,9 @@ const LoginForm = () => {
                 )}
                 {state.error?.message && <p className="text-red-500">{state.error.message}</p>}
               </div>
+              <Link className="block text-[15px] mt-4" href="/forgot-password">
+                パスワードをお忘れの方はこちら
+              </Link>
               <Button className="mt-5 cursor-pointer" type="submit">
                 ログイン
               </Button>

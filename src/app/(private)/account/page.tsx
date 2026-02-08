@@ -41,6 +41,18 @@ const AccountPage = async () => {
                 </TableRow>
               </TableBody>
             </Table>
+            <Table className="w-[50%] mt-2.5">
+              <TableHeader>
+                <TableRow className="border-none">
+                  <TableHead className="text-xs text-[#868686]">通知用メールアドレス</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow className="grid-cols-2 !border-b border-solid border-border">
+                  <TableCell className="pt-0">{user.user_metadata?.notification_email}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
             <div className="flex items-center gap-x-4 mt-10">
               <Button asChild className="bg-gray text-primary border border-primary hover:bg-gray">
                 <Link href="/account/notification-email">通知先メールアドレスを変更</Link>
