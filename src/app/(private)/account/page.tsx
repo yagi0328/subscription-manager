@@ -17,7 +17,7 @@ const AccountPage = async () => {
   const user = await requireAuth();
   const userId = user.id;
   return (
-    <section className="pt-15 pb-7.5 px-30">
+    <section className="pt-15 pb-7.5 px-30 max-md:py-12 max-md:px-6">
       <div className="max-w-[853px] mx-auto">
         <div className="flex items-center gap-x-3.5">
           <figure>
@@ -25,19 +25,29 @@ const AccountPage = async () => {
           </figure>
           <h2 className="text-xl font-extrabold">アカウント情報</h2>
         </div>
-        <Card className="mt-8 pt-10 pb-[65px] px-12 border-2">
+        <Card className="mt-8 pt-10 pb-[65px] px-12 border-2 max-md:mt-6 max-md:max-w-[600px] max-md:mx-auto max-md:pt-6 max-md:pb-8 max-md:px-0">
           <CardContent>
             <Table>
-              <TableHeader>
+              <TableHeader className="max-md:hidden">
                 <TableRow className="border-none">
                   <TableHead className="text-xs text-[#868686]">メールアドレス</TableHead>
                   <TableHead className="text-xs text-[#868686]">パスワード</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow className="grid-cols-2 !border-b border-solid border-border">
-                  <TableCell className="pt-0">{user.email}</TableCell>
-                  <TableCell className="pt-0">＊＊＊＊＊＊＊＊＊</TableCell>
+                <TableRow className="grid-cols-2 !border-b border-solid border-border max-md:flex max-md:flex-col max-md:border-none">
+                  <TableCell className="pt-0 max-md:py-2 max-md:border-b max-md:border-solid max-md:border-border max-md:w-fit">
+                    <span className="hidden max-md:block text-xs text-[#868686] mb-0.5">
+                      メールアドレス
+                    </span>
+                    {user.email}
+                  </TableCell>
+                  <TableCell className="pt-0 max-md:py-2 max-md:border-b max-md:border-solid max-md:border-border max-md:w-fit max-md:last-of-type:pt-5">
+                    <span className="hidden max-md:block text-xs text-[#868686] mb-0.5">
+                      パスワード
+                    </span>
+                    ＊＊＊＊＊＊＊＊＊
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -53,7 +63,7 @@ const AccountPage = async () => {
                 </TableRow>
               </TableBody>
             </Table>
-            <div className="flex items-center gap-x-4 mt-10">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 mt-10 max-md:mt-7">
               <Button asChild className="bg-gray text-primary border border-primary hover:bg-gray">
                 <Link href="/account/notification-email">通知先メールアドレスを変更</Link>
               </Button>

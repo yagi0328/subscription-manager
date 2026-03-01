@@ -32,9 +32,6 @@ const PrivateHeader = async () => {
             <DropdownMenuItem asChild>
               <Link href="/account">詳細</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="">編集</Link>
-            </DropdownMenuItem>
             <DeleteUserMenuItem userId={userId} />
           </DropdownMenuContent>
         </DropdownMenu>

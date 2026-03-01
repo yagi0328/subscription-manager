@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription } from "../ui/card";
 
 const RegisterForm = () => {
-  const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(signup, {
+  const [state, formAction] = useActionState<ActionStateType, FormData>(signup, {
     success: true,
   });
 

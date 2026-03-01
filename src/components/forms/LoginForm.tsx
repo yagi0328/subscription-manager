@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import Image from "next/image";
 import { Card, CardContent, CardDescription } from "../ui/card";
 import Link from "next/link";
+import { Spinner } from "../ui/spinner";
 
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(login, {
@@ -19,7 +20,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-[495px] mx-auto mt-[78px]">
+    <div className="max-w-[495px] mx-auto mt-[78px] max-md:mt-12">
       <div className="flex justify-center items-center gap-x-[9px]">
         <figure className="w-4">
           <Image src="/icn-person.svg" width={16} height={17} alt="人のアイコン" />
@@ -72,7 +73,8 @@ const LoginForm = () => {
               <Link className="block text-[15px] mt-4" href="/forgot-password">
                 パスワードをお忘れの方はこちら
               </Link>
-              <Button className="mt-5 cursor-pointer" type="submit">
+              <Button className="mt-5 cursor-pointer" type="submit" disabled={isPending}>
+                {isPending && <Spinner />}
                 ログイン
               </Button>
             </div>

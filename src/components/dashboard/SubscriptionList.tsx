@@ -33,7 +33,7 @@ const SubscriptionList = ({ subscriptions }: Subscriptions) => {
   };
 
   return (
-    <Card className="mt-9.5 ">
+    <Card className="mt-9.5 max-md:mt-4">
       <CardHeader>
         <CardTitle className="font-medium">サブスク一覧</CardTitle>
         <CardDescription>追加済みのサブスク一覧</CardDescription>
@@ -41,20 +41,23 @@ const SubscriptionList = ({ subscriptions }: Subscriptions) => {
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow className="grid grid-cols-[repeat(4,1fr)_24%] border-none">
+            <TableRow className="grid grid-cols-[repeat(4,minmax(0,1fr))_24%] border-none max-lg:grid-cols-4 max-sm:grid-cols-[46%_30%_24%]">
               <TableHead className="text-xs text-[#868686]">サブスク名</TableHead>
-              <TableHead className="text-xs text-[#868686]">料金</TableHead>
-              <TableHead className="text-xs text-[#211b1b]">更新サイクル</TableHead>
+              <TableHead className="text-xs text-[#868686] max-sm:hidden">料金</TableHead>
+              <TableHead className="text-xs text-[#211b1b] max-lg:hidden">更新サイクル</TableHead>
               <TableHead className="text-xs text-[#868686]">次回更新日</TableHead>
               <TableHead className="text-xs text-[#868686]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="block">
             {subscriptions.map((subscription) => (
-              <TableRow key={subscription.id} className="grid grid-cols-[repeat(4,1fr)_24%]">
-                <TableCell>{subscription.name}</TableCell>
-                <TableCell>{subscription.amount} 円</TableCell>
-                <TableCell>
+              <TableRow
+                key={subscription.id}
+                className="grid grid-cols-[repeat(4,minmax(0,1fr))_24%] max-lg:grid-cols-4 max-sm:grid-cols-[46%_30%_24%]"
+              >
+                <TableCell className="whitespace-break-spaces">{subscription.name}</TableCell>
+                <TableCell className="max-sm:hidden">{subscription.amount} 円</TableCell>
+                <TableCell className="max-lg:hidden">
                   {subscription.update_cycle_number}
                   {subscription.update_cycle_unit === "DAY" && "日"}
                   {subscription.update_cycle_unit === "MONTH" && "ヶ月"}
@@ -62,7 +65,7 @@ const SubscriptionList = ({ subscriptions }: Subscriptions) => {
                   ごと
                 </TableCell>
                 <TableCell>{format(subscription.next_update, "yyyy/MM/dd")}</TableCell>
-                <TableCell className="flex justify-end items-center gap-x-[13px]">
+                <TableCell className="flex justify-end items-center gap-x-[13px] max-sm:gap-x-2.5">
                   <figure className="w-[15px]">
                     <Link href={`/edit/${subscription.id}`}>
                       <Image src="/icn-edit.svg" width={15} height={15} alt="編集のアイコン" />

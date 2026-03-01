@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP } from "next/font/google";
+// import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-const notoJP = Noto_Sans_JP({
-  variable: "--font-notojp",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-});
+// const notoJP = Noto_Sans_JP({
+//   variable: "--font-notojp",
+//   weight: ["400", "500", "600", "700"],
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "サブスクリプション管理",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${notoJP.variable}  font-sans antialiased`}>
+      <body className={`font-sans antialiased`}>
         {children}
         <Toaster position="top-center" />
       </body>

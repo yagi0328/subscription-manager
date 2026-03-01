@@ -37,7 +37,7 @@ export async function GET(request: Request) {
                 notification_email: user.email!,
               },
             });
-            console.log("OAuth user created in public.User:", user.email);
+
           }
         } catch (error) {
           console.error("Failed to create user in public.User:", error);

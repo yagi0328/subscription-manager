@@ -25,7 +25,7 @@ const AddSubscriptionForm = () => {
     addSubscription,
     {
       success: false,
-    }
+    },
   );
 
   useEffect(() => {
@@ -40,8 +40,8 @@ const AddSubscriptionForm = () => {
   }, [state, router]);
 
   return (
-    <Card className="mt-8 pt-10 pb-12">
-      <CardContent className="px-12">
+    <Card className="mt-8 pt-10 pb-12 max-md:pt-6 max-md:pb-8 ">
+      <CardContent className="px-12 max-md:px-6">
         <form action={formAction}>
           <div className="grid gap-2">
             <Label className="font-medium" htmlFor="name">

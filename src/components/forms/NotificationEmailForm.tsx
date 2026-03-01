@@ -13,7 +13,7 @@ const NotificationEmailForm = () => {
     updateNotificationEmail,
     {
       success: false,
-    }
+    },
   );
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const NotificationEmailForm = () => {
     }
   }, [state]);
   return (
-    <Card className="mt-4">
+    <Card className="mt-8 max-md:mt-6">
       <CardContent>
         <form action={formAction}>
           <div className="max-w-[384px] mx-auto">

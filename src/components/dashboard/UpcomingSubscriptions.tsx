@@ -17,7 +17,7 @@ const UpcomingSubscriptions = ({ subscriptions }: Subscriptions) => {
     .sort((a, b) => a.next_update.getTime() - b.next_update.getTime());
 
   return (
-    <Card className="w-[calc((350/1456)*100%)]">
+    <Card className="w-[calc((350/1456)*100%)] max-lg:w-full max-lg:mt-9.5 max-md:mt-4">
       <CardHeader>
         <CardTitle className="font-medium">更新予定のサブスク</CardTitle>
         <CardDescription>7日以内に更新予定</CardDescription>

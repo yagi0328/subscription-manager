@@ -109,14 +109,14 @@ export async function signup(prevState: ActionStateType, formData: FormData) {
   }
 
   if (authData.user) {
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         id: authData.user.id,
         email: data.email,
         notification_email: data.email,
       },
     });
-    console.log("新規ユーザー作成:", newUser);
+
   }
 
   revalidatePath("/", "layout");
@@ -198,7 +198,7 @@ export async function requireAuth() {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-    console.log("認証失敗、ログインページにリダイレクト");
+
     redirect("/login");
   }
 
