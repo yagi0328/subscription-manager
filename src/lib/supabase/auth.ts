@@ -3,8 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient, createAdminClient } from "./server";
 import { revalidatePath } from "next/cache";
-import { authSchema, changePasswordSchema, notificationEmailSchema } from "../varidations/auth";
-import { prisma } from "../prisma";
+import { authSchema, changePasswordSchema, notificationEmailSchema } from "../validations/auth";
 
 export type ActionStateType = {
   success: boolean;
@@ -33,17 +32,6 @@ export async function login(prevState: ActionStateType, formData: FormData) {
     return {
       success: false,
       error: validate.error.flatten().fieldErrors,
-    };
-  }
-
-  const existingUser = await prisma.user.findUnique({
-    where: { email: data.email },
-  });
-
-  if (!existingUser) {
-    return {
-      success: false,
-      error: { message: "メールアドレスまたはパスワードが正しくありません" },
     };
   }
 
@@ -77,20 +65,7 @@ export async function signup(prevState: ActionStateType, formData: FormData) {
     };
   }
 
-  const existingUser = await prisma.user.findUnique({
-    where: { email: data.email },
-  });
-
-  if (existingUser) {
-    return {
-      success: false,
-      error: {
-        email: ["このメールアドレスは既に使用されています"],
-      },
-    };
-  }
-
-  const { data: authData, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
@@ -101,22 +76,11 @@ export async function signup(prevState: ActionStateType, formData: FormData) {
   });
 
   if (error) {
-    console.error("Supabase signup error:", error);
+    console.error("Signup failed:", error);
     return {
       success: false,
       error: { message: `登録に失敗しました: ${error.message}` },
     };
-  }
-
-  if (authData.user) {
-    await prisma.user.create({
-      data: {
-        id: authData.user.id,
-        email: data.email,
-        notification_email: data.email,
-      },
-    });
-
   }
 
   revalidatePath("/", "layout");
@@ -143,7 +107,7 @@ export async function signInWithGoogle() {
     },
   });
 
-  if (error) console.error("Googleログインエラー:", error.message);
+  if (error) console.error("Google login error:", error.message);
   if (!error && url) redirect(url);
 }
 
@@ -155,7 +119,7 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    console.error("ログアウトエラー:", error.message);
+    console.error("Logout error:", error.message);
     return false;
   }
 
@@ -166,27 +130,12 @@ export async function signOut() {
 // ユーザー削除
 // ---------------------------------------------
 export async function deleteUser(id: string) {
-  try {
-    // Admin API用のクライアントを使用
-    const supabaseAdmin = createAdminClient();
+  const supabaseAdmin = createAdminClient();
+  const { error } = await supabaseAdmin.auth.admin.deleteUser(id);
 
-    // Supabase認証システムからユーザーを削除
-    const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(id);
-
-    if (authError) {
-      console.error("Supabase auth deletion failed:", authError);
-      throw new Error("認証ユーザーの削除に失敗しました。");
-    }
-
-    // Prismaデータベースからユーザーを削除
-    await prisma.user.delete({
-      where: {
-        id,
-      },
-    });
-  } catch (error) {
+  if (error) {
     console.error("User deletion failed:", error);
-    throw new Error("削除に失敗しました。");
+    throw new Error("ユーザーの削除に失敗しました。");
   }
 }
 
@@ -198,7 +147,6 @@ export async function requireAuth() {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-
     redirect("/login");
   }
 
@@ -309,28 +257,22 @@ export async function updateNotificationEmail(prevState: ActionStateType, formDa
     };
   }
 
-  try {
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { notification_email: data.notification_email },
-    });
+  const { error: updateError } = await supabase.auth.updateUser({
+    data: {
+      notification_email: data.notification_email,
+    },
+  });
 
-    // Supabase Authのメタデータも更新
-    await supabase.auth.updateUser({
-      data: {
-        notification_email: data.notification_email,
-      },
-    });
-
-    return {
-      success: true,
-      message: "通知先メールアドレスを変更しました",
-    };
-  } catch (error) {
-    console.error("Notification email update failed:", error);
+  if (updateError) {
+    console.error("Notification email update failed:", updateError);
     return {
       success: false,
       error: { message: "更新に失敗しました" },
     };
   }
+
+  return {
+    success: true,
+    message: "通知先メールアドレスを変更しました",
+  };
 }
