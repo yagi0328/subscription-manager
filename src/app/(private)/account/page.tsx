@@ -13,7 +13,7 @@ import { requireAuth } from "@/lib/supabase/auth";
 import Image from "next/image";
 import Link from "next/link";
 
-const AccountPage = async () => {
+export default async function AccountPage() {
   const user = await requireAuth();
   const userId = user.id;
   return (
@@ -74,6 +74,4 @@ const AccountPage = async () => {
       </div>
     </section>
   );
-};
-
-export default AccountPage;
+}

@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription } from "../ui/card";
 import Link from "next/link";
 import { Spinner } from "../ui/spinner";
 
-const LoginForm = () => {
+export default function LoginForm() {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(login, {
     success: true,
   });
@@ -87,6 +87,4 @@ const LoginForm = () => {
       </Button>
     </div>
   );
-};
-
-export default LoginForm;
+}

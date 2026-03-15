@@ -7,9 +7,10 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import Image from "next/image";
 import { Card, CardContent, CardDescription } from "../ui/card";
+import { Spinner } from "../ui/spinner";
 
-const RegisterForm = () => {
-  const [state, formAction] = useActionState<ActionStateType, FormData>(signup, {
+export default function RegisterForm() {
+  const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(signup, {
     success: true,
   });
 
@@ -64,7 +65,8 @@ const RegisterForm = () => {
                 )}
                 {state.error?.message && <p className="text-red-500">{state.error.message}</p>}
               </div>
-              <Button className="mt-7 cursor-pointer" type="submit">
+              <Button className="mt-7 cursor-pointer" type="submit" disabled={isPending}>
+                {isPending && <Spinner />}
                 新規登録
               </Button>
             </div>
@@ -73,6 +75,4 @@ const RegisterForm = () => {
       </Card>
     </div>
   );
-};
-
-export default RegisterForm;
+}

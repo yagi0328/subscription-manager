@@ -1,6 +1,6 @@
 import AddSubscriptionForm from "@/components/forms/AddSubscriptionForm";
 
-const AdditionPage = () => {
+export default function AdditionPage() {
   return (
     <section className="pt-15 pb-7.5 px-30 max-md:py-12 max-md:px-6">
       <div className="max-w-[530px] mx-auto">
@@ -9,6 +9,4 @@ const AdditionPage = () => {
       </div>
     </section>
   );
-};
-
-export default AdditionPage;
+}

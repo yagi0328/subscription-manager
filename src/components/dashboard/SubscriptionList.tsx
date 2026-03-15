@@ -20,12 +20,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const SubscriptionList = ({ subscriptions }: Subscriptions) => {
-  const handleDelete = async (id: string) => {
+type Props = Subscriptions & { userId: string };
+
+export default function SubscriptionList({ subscriptions, userId }: Props) {
+  const router = useRouter();
+  const handleDelete = async (id: string, userId: string) => {
     try {
-      await deleteSubscription(id);
-      window.location.reload();
+      await deleteSubscription(id, userId);
+      router.refresh();
     } catch (error) {
       toast.error("サブスクリプションの削除に失敗しました");
       console.error(error);
@@ -91,7 +95,7 @@ const SubscriptionList = ({ subscriptions }: Subscriptions) => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>キャンセル</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleDelete(subscription.id)}>
+                        <AlertDialogAction onClick={() => handleDelete(subscription.id, userId)}>
                           削除
                         </AlertDialogAction>
                       </AlertDialogFooter>
@@ -105,6 +109,4 @@ const SubscriptionList = ({ subscriptions }: Subscriptions) => {
       </CardContent>
     </Card>
   );
-};
-
-export default SubscriptionList;
+}

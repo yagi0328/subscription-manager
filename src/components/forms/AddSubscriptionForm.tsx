@@ -19,7 +19,7 @@ import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-const AddSubscriptionForm = () => {
+export default function AddSubscriptionForm() {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(
     addSubscription,
@@ -34,6 +34,8 @@ const AddSubscriptionForm = () => {
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
+    } else if (state.message) {
+      toast.error(state.message);
     } else if (state.error) {
       toast.error("登録に失敗しました");
     }
@@ -114,6 +116,4 @@ const AddSubscriptionForm = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default AddSubscriptionForm;
+}

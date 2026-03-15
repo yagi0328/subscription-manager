@@ -2,7 +2,7 @@ import { endOfMonth, getDaysInMonth, startOfMonth } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Subscriptions } from "@/types/subscription";
 
-const MonthlyTotal = ({ subscriptions }: Subscriptions) => {
+export default function MonthlyTotal({ subscriptions }: Subscriptions) {
   const today = new Date();
   const startMonth = startOfMonth(today);
   const endMonth = endOfMonth(today);
@@ -30,6 +30,4 @@ const MonthlyTotal = ({ subscriptions }: Subscriptions) => {
       </CardContent>
     </Card>
   );
-};
-
-export default MonthlyTotal;
+}

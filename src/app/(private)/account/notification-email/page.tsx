@@ -1,7 +1,7 @@
 import NotificationEmailForm from "@/components/forms/NotificationEmailForm";
 import Image from "next/image";
 
-const NotificationEmailPage = () => {
+export default function NotificationEmailPage() {
   return (
     <section className="pt-15 pb-7.5 px-30 max-md:py-12 max-md:px-6">
       <div className="max-w-[495px] mx-auto">
@@ -15,6 +15,4 @@ const NotificationEmailPage = () => {
       </div>
     </section>
   );
-};
-
-export default NotificationEmailPage;
+}

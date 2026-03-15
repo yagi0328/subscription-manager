@@ -1,9 +1,9 @@
 import Image from "next/image";
-import React, { FC } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-const PublicHeader: FC = () => {
+export default function PublicHeader() {
   return (
     <header className="flex justify-between items-center pt-4.5 pr-[23px] pb-3.5 pl-8.5 bg-gray-dr">
       <h1 className="w-[93px]">
@@ -16,6 +16,4 @@ const PublicHeader: FC = () => {
       </Button>
     </header>
   );
-};
-
-export default PublicHeader;
+}

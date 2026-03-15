@@ -2,7 +2,7 @@ import { endOfYear, getDaysInYear, startOfYear } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Subscriptions } from "@/types/subscription";
 
-const YearlyTotal = ({ subscriptions }: Subscriptions) => {
+export default function YearlyTotal({ subscriptions }: Subscriptions) {
   const today = new Date();
   const startYear = startOfYear(today);
   const endYear = endOfYear(today);
@@ -35,6 +35,4 @@ const YearlyTotal = ({ subscriptions }: Subscriptions) => {
       </CardContent>
     </Card>
   );
-};
-
-export default YearlyTotal;
+}

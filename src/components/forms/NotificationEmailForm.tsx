@@ -8,7 +8,7 @@ import { useActionState, useEffect } from "react";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 
-const NotificationEmailForm = () => {
+export default function NotificationEmailForm() {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(
     updateNotificationEmail,
     {
@@ -56,6 +56,4 @@ const NotificationEmailForm = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default NotificationEmailForm;
+}

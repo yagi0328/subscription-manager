@@ -8,7 +8,7 @@ import { useActionState, useEffect } from "react";
 import { Spinner } from "../ui/spinner";
 import { toast } from "sonner";
 
-const ForgotPasswordForm = () => {
+export default function ForgotPasswordForm() {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(
     sendPasswordResetEmail,
     {
@@ -56,6 +56,4 @@ const ForgotPasswordForm = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default ForgotPasswordForm;
+}

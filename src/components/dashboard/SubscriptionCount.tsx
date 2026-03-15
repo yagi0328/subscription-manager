@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Subscriptions } from "@/types/subscription";
 
-const SubscriptionCount = ({ subscriptions }: Subscriptions) => {
+export default function SubscriptionCount({ subscriptions }: Subscriptions) {
   return (
     <Card className=" pt-[17px] pb-[45px]">
       <CardHeader>
@@ -14,6 +14,4 @@ const SubscriptionCount = ({ subscriptions }: Subscriptions) => {
       </CardContent>
     </Card>
   );
-};
-
-export default SubscriptionCount;
+}

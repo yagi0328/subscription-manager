@@ -26,7 +26,7 @@ type Props = {
   defaultDate?: Date;
 };
 
-const NextUpdateDatePicker = ({ errors, defaultDate }: Props) => {
+export default function NextUpdateDatePicker({ errors, defaultDate }: Props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState<Date | undefined>(defaultDate);
   const [value, setValue] = React.useState(formatDate(defaultDate));
@@ -95,6 +95,4 @@ const NextUpdateDatePicker = ({ errors, defaultDate }: Props) => {
       {errors && <p className="text-red-500 text-sm">{errors[0]}</p>}
     </div>
   );
-};
-
-export default NextUpdateDatePicker;
+}

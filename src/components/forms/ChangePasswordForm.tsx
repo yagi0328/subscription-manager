@@ -8,7 +8,7 @@ import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { Spinner } from "../ui/spinner";
 
-const ChangePasswordForm = () => {
+export default function ChangePasswordForm() {
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(changePassword, {
     success: false,
   });
@@ -64,6 +64,4 @@ const ChangePasswordForm = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default ChangePasswordForm;
+}

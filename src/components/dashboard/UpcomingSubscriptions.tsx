@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Subscriptions } from "@/types/subscription";
 import { addWeeks, format, startOfDay } from "date-fns";
 
-const UpcomingSubscriptions = ({ subscriptions }: Subscriptions) => {
+export default function UpcomingSubscriptions({ subscriptions }: Subscriptions) {
   const today = startOfDay(new Date());
   const oneWeekLater = addWeeks(today, 1);
 
@@ -35,7 +35,9 @@ const UpcomingSubscriptions = ({ subscriptions }: Subscriptions) => {
               <TableRow key={subscription.id} className="grid grid-cols-2 ">
                 <TableCell>{subscription.name}</TableCell>
                 <TableCell className="text-right">
-                  <time>{format(subscription.next_update, "yyyy/MM/dd")}</time>
+                  <time dateTime={format(subscription.next_update, "yyyy/MM/dd")}>
+                    {format(subscription.next_update, "yyyy/MM/dd")}
+                  </time>
                 </TableCell>
               </TableRow>
             ))}
@@ -44,6 +46,4 @@ const UpcomingSubscriptions = ({ subscriptions }: Subscriptions) => {
       </CardContent>
     </Card>
   );
-};
-
-export default UpcomingSubscriptions;
+}

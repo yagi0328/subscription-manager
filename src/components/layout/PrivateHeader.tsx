@@ -10,7 +10,7 @@ import LogoutButton from "../ui/buttons/LogoutButton";
 import { requireAuth } from "@/lib/supabase/auth";
 import DeleteUserMenuItem from "../ui/buttons/DeleteUserMenuItem";
 
-const PrivateHeader = async () => {
+export default async function PrivateHeader() {
   const user = await requireAuth();
   const userId = user.id;
 
@@ -39,6 +39,4 @@ const PrivateHeader = async () => {
       </div>
     </header>
   );
-};
-
-export default PrivateHeader;
+}

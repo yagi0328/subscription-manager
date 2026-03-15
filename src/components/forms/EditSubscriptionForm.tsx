@@ -24,7 +24,7 @@ type Props = {
   subscription: Subscription;
 };
 
-const EditSubscriptionForm = ({ subscription }: Props) => {
+export default function EditSubscriptionForm({ subscription }: Props) {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState<ActionStateType, FormData>(
     editSubscription,
@@ -39,6 +39,8 @@ const EditSubscriptionForm = ({ subscription }: Props) => {
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
+    } else if (state.message) {
+      toast.error(state.message);
     } else if (state.error) {
       toast.error("更新に失敗しました");
     }
@@ -132,6 +134,4 @@ const EditSubscriptionForm = ({ subscription }: Props) => {
       </CardContent>
     </Card>
   );
-};
-
-export default EditSubscriptionForm;
+}

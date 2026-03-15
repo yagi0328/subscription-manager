@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 
-const DashboardPage = async () => {
+export default async function DashboardPage() {
   const user = await requireAuth();
   const userId = user.id;
   await updateSubscriptionDates(userId);
@@ -48,13 +48,11 @@ const DashboardPage = async () => {
               <YearlyTotal subscriptions={subscriptions} />
               <SubscriptionCount subscriptions={subscriptions} />
             </div>
-            <SubscriptionList subscriptions={subscriptions} />
+            <SubscriptionList subscriptions={subscriptions} userId={userId} />
           </div>
           <UpcomingSubscriptions subscriptions={subscriptions} />
         </div>
       </div>
     </section>
   );
-};
-
-export default DashboardPage;
+}

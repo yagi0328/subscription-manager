@@ -1,17 +1,15 @@
 import PublicHeader from "@/components/layout/PublicHeader";
-import React, { FC, ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
 };
 
-const PublicLayout: FC<Props> = ({ children }) => {
+export default function PublicLayout({ children }: Props) {
   return (
     <>
       <PublicHeader />
       <main>{children}</main>
     </>
   );
-};
-
-export default PublicLayout;
+}
