@@ -13,8 +13,7 @@ import {
   differenceInMonths,
   differenceInYears,
 } from "date-fns";
-import { revalidatePath } from "next/cache";
-import { map } from "zod";
+import { revalidateTag } from "next/cache";
 
 export type ActionStateType = {
   success: boolean;
@@ -53,7 +52,7 @@ export async function addSubscription(prevState: ActionStateType, formData: Form
     await prisma.subscription.create({
       data: { user_id: result.userId, ...result.data },
     });
-    revalidatePath("/dashboard");
+    revalidateTag("subscriptions");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -71,7 +70,7 @@ export async function editSubscription(prevState: ActionStateType, formData: For
       where: { id },
       data: { ...result.data },
     });
-    revalidatePath("/dashboard");
+    revalidateTag("subscriptions");
     return { success: true };
   } catch (error) {
     console.error(error);
@@ -122,6 +121,7 @@ export async function updateSubscriptionDates(userId: string) {
         });
       }),
     );
+    revalidateTag("subscriptions");
   } catch (error) {
     console.error("日付更新に失敗しました:", error);
   }
@@ -135,7 +135,7 @@ export async function deleteSubscription(id: string, userId: string) {
         id,
       },
     });
-    revalidatePath("/dashboard");
+    revalidateTag("subscriptions");
   } catch (error) {
     console.error("Subscription deletion failed:", error);
     throw new Error("削除に失敗しました。");
